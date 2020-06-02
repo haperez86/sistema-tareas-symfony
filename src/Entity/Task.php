@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tasks
+ * Task
  *
  * @ORM\Table(name="tasks", indexes={@ORM\Index(name="fk_tasks_user", columns={"user_id"})})
  * @ORM\Entity
  */
-class Tasks
+class Task
 {
     /**
      * @var int
@@ -57,9 +57,9 @@ class Tasks
     private $createdAt = 'NULL';
 
     /**
-     * @var \Users
+     * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -131,7 +131,7 @@ class Tasks
         return $this;
     }
 
-    public function getUser(): ?Users
+    public function getUser()
     {
         return $this->user;
     }

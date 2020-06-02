@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Users
+ * User
  *
  * @ORM\Table(name="users")
  * @ORM\Entity
  */
-class Users
+class User
 {
     /**
      * @var int
@@ -62,6 +65,15 @@ class Users
      * @ORM\Column(name="created_at", type="datetime", nullable=true, options={"default"="NULL"})
      */
     private $createdAt = 'NULL';
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="user")
+     */
+    private $tasks;
+
+    public function __contruct(){
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +150,14 @@ class Users
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
     }
 
 
